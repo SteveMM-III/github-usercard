@@ -82,7 +82,6 @@ axios.get('https://api.github.com/users/SteveMM-III/followers')
 
 
 const CardCreator = ( obj ) => {
-   console.log( obj );
    const card      = document.createElement( 'div' );
    const img       = document.createElement( 'img' );
    const info      = document.createElement( 'div' );
