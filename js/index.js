@@ -72,9 +72,9 @@ axios.get('https://api.github.com/users/SteveMM-III/followers')
    .then( response => {
       response.data.forEach( e => { 
          axios.get(e.url)
-         .then( res => {
-            cards.appendChild( CardCreator( res.data ) ); 
-         })
+            .then( res => {
+               cards.appendChild( CardCreator( res.data ) ); 
+            })
             .catch( error => { console.log( `Error: ${error}`) } );
       });
    })
@@ -93,6 +93,7 @@ const CardCreator = ( obj ) => {
    const followers = document.createElement( 'p'   );
    const following = document.createElement( 'p'   );
    const bio       = document.createElement( 'p'   );
+   const cal       = document.createElement( 'div' );
    
    name.textContent      = obj.name;
    user.textContent      = obj.login;
@@ -106,10 +107,16 @@ const CardCreator = ( obj ) => {
    img.setAttribute ( 'src', obj.avatar_url );
    link.setAttribute( 'href', obj.url       );
    
+   card.style.flexWrap = 'wrap';
+   cal.style.width = '100%';
+   
    card.classList.add( 'card'      );
    info.classList.add( 'card-info' );
    name.classList.add( 'name'      );
    user.classList.add( 'username'  );
+   cal.classList.add ( 'calendar'  );
+   
+   new GitHubCalendar( cal, obj.login, { responsive: true } );
    
    card.appendChild( img       );
    card.appendChild( info      );
@@ -121,6 +128,9 @@ const CardCreator = ( obj ) => {
    info.appendChild( followers );
    info.appendChild( following );
    info.appendChild( bio       );
+   card.appendChild( cal       );
+   
+   
    
    return card;
 };
